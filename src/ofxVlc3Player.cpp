@@ -1,9 +1,13 @@
 #include "ofxVlc3Player.h"
 
 ofxVlcPlayer::ofxVlcPlayer()
-    : libvlc(NULL), eventManager(NULL), media(NULL), mediaPlayer(NULL), ringBuffer(static_cast<size_t>(1024 * 1024)) {
-    buffer.allocate(1, 2);
-    }
+	: libvlc(NULL)
+	, eventManager(NULL)
+	, media(NULL)
+	, mediaPlayer(NULL)
+	, ringBuffer(static_cast<size_t>(1024 * 1024)) {
+	buffer.allocate(1, 2);
+}
 
 ofxVlcPlayer::~ofxVlcPlayer() {}
 
