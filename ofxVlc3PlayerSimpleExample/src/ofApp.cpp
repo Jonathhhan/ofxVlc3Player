@@ -11,16 +11,17 @@ void ofApp::setup() {
 	ofSetFrameRate(60);
 
 	soundStream.printDeviceList();
-
 	ofSoundStreamSettings settings;
 	auto devices = soundStream.getDeviceList();
 	settings.setOutDevice(devices[0]);
 	settings.setOutListener(this);
 	// Change the sample rate to the rate and output channels to the channel number of the file that you want to play!
+	bufferSize = 128;
+	outChannels = 2;
 	settings.sampleRate = 48000;
-	settings.numOutputChannels = 2;
+	settings.numOutputChannels = outChannels;
 	settings.numInputChannels = 0;
-	settings.bufferSize = 128;
+	settings.bufferSize = bufferSize;
 	soundStream.setup(settings);
 
 	char const* vlc_argv[] = { "", "--input-repeat=100" };
@@ -28,19 +29,21 @@ void ofApp::setup() {
 	player.load(ofToDataPath("FC Shuttle 1303.mp3"), vlc_argc, vlc_argv);
 	player.setLoop(false);
 	player.play();
+	bufferCopy.allocate(1,2);
 }
 
 //--------------------------------------------------------------
 void ofApp::audioOut(ofSoundBuffer& buffer) {
 	if (player.audioIsReady()) {
 		player.ringBuffer.readIntoBuffer(buffer);
+		bufferCopy.swap(buffer);
 	}
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
 	player.update();
-	projectM.audio(&player.buffer.getBuffer()[0]);
+	projectM.audio(&bufferCopy.getBuffer()[0], bufferSize, outChannels);
 	projectM.update();
 }
 

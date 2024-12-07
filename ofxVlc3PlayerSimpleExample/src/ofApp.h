@@ -5,6 +5,8 @@
 #include "ofxProjectM.h"
 
 class ofApp : public ofBaseApp {
+	int bufferSize;
+	int outChannels;
 public:
     void setup();
     void update();
@@ -21,6 +23,7 @@ public:
     void gotMessage(ofMessage msg);
     void audioOut(ofSoundBuffer& buffer);
     ofSoundStream soundStream;
+	ofSoundBuffer bufferCopy;
     ofxVlcPlayer player;
     ofxProjectM projectM;
     ofBoxPrimitive box;
