@@ -52,8 +52,7 @@ void ofApp::draw() {
 	ofDisableDepthTest();
 	projectM.unbind();
 	cam.end();
-
-	ofSetColor(225);
+	ofSetColor(200);
 	ofDrawBitmapString("FPS: " + ofToString(ofGetFrameRate()), 20, 20);
 	ofDrawBitmapString("Second: " + ofToString(player.getTime() / 1000), 20, 40);
 	ofDrawBitmapString("Press space for play, p for pause and m for switching the projectM preset!", 20, 60);
