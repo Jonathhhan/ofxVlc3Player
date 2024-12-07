@@ -6,6 +6,7 @@
 
 class ofxVlcPlayer {
     ofImage image;
+    ofSoundBuffer buffer;
 
     libvlc_instance_t* libvlc;
     libvlc_media_t* media;
@@ -69,5 +70,4 @@ public:
     void close();
     bool audioIsReady();
     LockFreeRingBuffer ringBuffer;
-    ofSoundBuffer buffer;
 };
