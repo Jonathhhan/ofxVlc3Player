@@ -77,6 +77,9 @@ public:
     ///\brief get the number of readable samples
     size_t getNumReadableSamples() const;
 
+	std::atomic<size_t> _readStart;
+	std::atomic<size_t> _writeStart;
+
 private:
     
     // On return first and second are pointers to positions to write samples to
@@ -97,13 +100,8 @@ private:
     ///\param numSamples is the number of samples that where actually read
     void readEnd(size_t numSamples);
 
-    
-    
-    std::atomic<size_t>    _readStart;
-    std::atomic<size_t>    _writeStart;
     std::vector<float>     _buffer;
     size_t                 _samples;
-
 };
 
 
