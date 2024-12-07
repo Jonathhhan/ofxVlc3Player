@@ -1,7 +1,7 @@
 #include "ofxVlc3Player.h"
 
 ofxVlcPlayer::ofxVlcPlayer()
-    : libvlc(NULL), eventManager(NULL), media(NULL), mediaPlayer(NULL), ringBuffer(1) {
+    : libvlc(NULL), eventManager(NULL), media(NULL), mediaPlayer(NULL), ringBuffer(static_cast<size_t>(2097152)) {
     buffer.allocate(1, 2);
     }
 
@@ -48,10 +48,6 @@ void ofxVlcPlayer::load(std::string name, int vlc_argc, char const* vlc_argv[]) 
 
 void ofxVlcPlayer::audioPlay(void* data, const void* samples, unsigned int count, int64_t pts) {
     ofxVlcPlayer* that = static_cast<ofxVlcPlayer*>(data);
-    if (that->ringBufferSize != count) {
-        that->ringBufferSize = count;
-        that->ringBuffer.allocate(static_cast<size_t>(count) * 4096);
-    }
     short* sampleArray = (short*)samples;
     float sampleArrayConverted[10000]{};
     for (int i = 0; i < count * that->channels; i++) {
@@ -88,6 +84,7 @@ int ofxVlcPlayer::audioSetup(void** data, char* format, unsigned int* rate, unsi
     strncpy(format, "S16N", 4);
     that->sampleRate = rate[0];
     that->channels = channels[0];
+    that->audioIsReady = true;
     std::cout << "audio format : " << format << ", rate: " << rate[0] << ", channels: " << channels[0] << std::endl;
     return 0;
 }
