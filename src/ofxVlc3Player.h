@@ -18,6 +18,7 @@ class ofxVlcPlayer {
     int channels = 0;
     int sampleRate = 0;
     bool isLooping = false;
+    bool isAudioReady = false;
 
     // VLC Video callbaks
     static void* lockStatic(void* data, void** p_pixels);
@@ -66,6 +67,7 @@ public:
     void setVolume(int volume);
     void toggleMute();
     void close();
+    bool audioIsReady();
     LockFreeRingBuffer ringBuffer;
     ofSoundBuffer buffer;
 };
