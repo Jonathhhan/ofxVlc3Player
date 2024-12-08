@@ -18,14 +18,14 @@ void ofApp::setup() {
 	// Change the sample rate to the rate and output channels to the channel number of the file that you want to play!
 	bufferSize = 256;
 	outChannels = 2;
-	settings.sampleRate = 44100;
+	settings.sampleRate = 48000;
 	settings.numOutputChannels = outChannels;
 	settings.numInputChannels = 0;
 	settings.bufferSize = bufferSize;
 	soundStream.setup(settings);
 
-	mediaPath = ofToDataPath("cw_amen10_135.wav");
-	// mediaPath = "https://acidpauli.pushtopull.org/files/FC-Shuttle/FC%20Shuttle%201201.MP3";
+	// mediaPath = ofToDataPath("cw_amen10_135.wav");
+	mediaPath = "https://acidpauli.pushtopull.org/files/FC-Shuttle/FC%20Shuttle%201201.MP3";
 	char const* vlc_argv[] = { "--file-caching=10", "--network-caching=100", "--input-repeat=100" };
 	int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
 	player.load(mediaPath, vlc_argc, vlc_argv);
