@@ -18,7 +18,7 @@ void ofApp::setup() {
 	// Change the sample rate to the rate and output channels to the channel number of the file that you want to play!
 	bufferSize = 256;
 	outChannels = 2;
-	settings.sampleRate = 48000;
+	settings.sampleRate = 44100;
 	settings.numOutputChannels = outChannels;
 	settings.numInputChannels = 0;
 	settings.bufferSize = bufferSize;
