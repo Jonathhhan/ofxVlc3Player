@@ -229,6 +229,7 @@ void * ofxVlcPlayer::lock(void ** p_pixels) {
 void ofxVlcPlayer::close() {
 	libvlc_media_player_release(mediaPlayer);
 	libvlc_media_release(media);
+	libvlc_free(libvlc);
 }
 
 bool ofxVlcPlayer::audioIsReady() {
