@@ -25,7 +25,8 @@ void ofApp::setup() {
 	soundStream.setup(settings);
 
 	mediaPath = ofToDataPath("cw_amen10_135.wav");
-	char const* vlc_argv[] = { "--file-caching=10", "--input-repeat=100" };
+	// mediaPath = "https://acidpauli.pushtopull.org/files/FC-Shuttle/FC%20Shuttle%201201.MP3";
+	char const* vlc_argv[] = { "--file-caching=10", "--network-caching=100", "--input-repeat=100" };
 	int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
 	player.load(mediaPath, vlc_argc, vlc_argv);
 	player.setLoop(false);
