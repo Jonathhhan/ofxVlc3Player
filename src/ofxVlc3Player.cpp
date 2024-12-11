@@ -5,7 +5,7 @@ ofxVlcPlayer::ofxVlcPlayer()
 	, eventManager(NULL)
 	, media(NULL)
 	, mediaPlayer(NULL)
-	, ringBuffer(static_cast<size_t>(2048 * 2048)) {
+	, ringBuffer(static_cast<size_t>(50000)) {
 	buffer.allocate(1, 2);
 }
 
@@ -54,12 +54,7 @@ void ofxVlcPlayer::load(std::string name, int vlc_argc, char const * vlc_argv[])
 void ofxVlcPlayer::audioPlay(void * data, const void * samples, unsigned int count, int64_t pts) {
 	ofxVlcPlayer * that = static_cast<ofxVlcPlayer *>(data);
 	that->isAudioReady = true;
-	short * sampleArray = (short *)samples;
-	float sampleArrayConverted[10000] {};
-	for (int i = 0; i < count * that->channels; i++) {
-		sampleArrayConverted[i] = ofMap(sampleArray[i], -32768, 32768, -1, 1);
-	}
-	that->buffer.copyFrom(sampleArrayConverted, count, that->channels, that->sampleRate);
+	that->buffer.copyFrom((short *)samples, count, that->channels, that->sampleRate);
 	that->ringBuffer.writeFromBuffer(that->buffer);
 	// std::cout << "sample size : " << sampleArrayConverted[0] << ", pts: " << pts << std::endl;
 	// std::cout << "readable samples: " << that->ringBuffer.getNumReadableSamples() << ", read position: " << that->ringBuffer.getReadPosition() << std::endl;
