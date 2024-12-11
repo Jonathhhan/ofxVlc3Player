@@ -25,8 +25,8 @@ void ofApp::setup() {
 	soundStream.setup(settings);
 
 	// mediaPath = ofToDataPath("cw_amen10_135.wav");
-	mediaPath = "https://acidpauli.pushtopull.org/files/FC-Shuttle/FC%20Shuttle%201201.MP3";
-	char const* vlc_argv[] = { "--file-caching=10", "--network-caching=100", "--input-repeat=100" };
+	mediaPath = "https://media.tagesschau.de/video/2024/1210/TV-20241210-0008-5200.webxxl.h264.mp4";
+	char const * vlc_argv[] = { "--file-caching=0", "--network-caching=20000", "--input-repeat=100", "--audio-desync=2000" };
 	int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
 	player.load(mediaPath, vlc_argc, vlc_argv);
 	player.setLoop(false);
@@ -73,7 +73,7 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	if (key == 32) {
-		char const* vlc_argv[] = { "--file-caching=10", "--network-caching=100", "--input-repeat=0" };
+		char const * vlc_argv[] = { "--file-caching=0", "--network-caching=20000", "--input-repeat=100", "--audio-desync=2000" };
 		int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
 		player.load(mediaPath, vlc_argc, vlc_argv);
 		player.play();
