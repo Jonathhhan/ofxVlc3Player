@@ -18,17 +18,18 @@ void ofApp::setup() {
 	// Change the sample rate to the rate and output channels to the channel number of the file that you want to play!
 	bufferSize = 256;
 	outChannels = 2;
-	settings.sampleRate = 48000;
+	settings.sampleRate = 44100;
 	settings.numOutputChannels = outChannels;
 	settings.numInputChannels = 0;
 	settings.bufferSize = bufferSize;
 	soundStream.setup(settings);
 
-	// mediaPath = ofToDataPath("cw_amen10_135.wav");
-	mediaPath = "https://media.tagesschau.de/video/2024/1210/TV-20241210-0008-5200.webxxl.h264.mp4";
-	char const * vlc_argv[] = { "--file-caching=0", "--network-caching=20000", "--input-repeat=100", "--audio-desync=2000" };
+	mediaPath = ofToDataPath("Sample 8k UHD (Ultra HD) video download of Rio.mkv");
+	// mediaPath = "https://media.tagesschau.de/video/2024/1210/TV-20241210-0008-5200.webxxl.h264.mp4";
+	char const * vlc_argv[] = { "--file-caching=100", "--network-caching=100", "--input-repeat=0", "--audio-desync=0" };
 	int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
-	player.load(mediaPath, vlc_argc, vlc_argv);
+	player.init(vlc_argc, vlc_argv);
+	player.load(mediaPath);
 	player.setLoop(false);
 	player.play();
 }
@@ -49,7 +50,7 @@ void ofApp::update() {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	// player.draw(0, 0, 1280, 720);
+	player.draw(0, 0, 1280, 720);
 	cam.begin();
 	projectM.bind();
 	ofEnableDepthTest();
@@ -73,9 +74,9 @@ void ofApp::exit() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	if (key == 32) {
-		char const * vlc_argv[] = { "--file-caching=0", "--network-caching=20000", "--input-repeat=100", "--audio-desync=2000" };
+		char const * vlc_argv[] = { "--file-caching=100", "--network-caching=100", "--input-repeat=0", "--audio-desync=0" };
 		int vlc_argc = sizeof(vlc_argv) / sizeof(*vlc_argv);
-		player.load(mediaPath, vlc_argc, vlc_argv);
+		player.load(mediaPath);
 		player.play();
 	}
 	else if (key == 112) {
